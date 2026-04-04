@@ -11,25 +11,14 @@ namespace OneM.AnimationSystem
         [SerializeField, Tooltip("The animation identifier.")]
         private string identifier;
 
-        /// <summary>
-        /// The animation identifier.
-        /// </summary>
         public string Identifier => identifier;
-
-        /// <summary>
-        /// Whether is currently playing this animation.
-        /// </summary>
-        public bool IsPlayingAnimation { get; private set; }
+        public virtual bool IsPaused { get; private set; }
+        public virtual bool IsPlaying { get; private set; }
 
         private CancellationTokenSource cancelationSource;
 
+        private void OnEnable() => Play();
         private void OnDisable() => Stop();
-
-        public virtual void Stop()
-        {
-            Cancel();
-            IsPlayingAnimation = false;
-        }
 
         public virtual void Restart()
         {
@@ -37,7 +26,13 @@ namespace OneM.AnimationSystem
             Play();
         }
 
-        public virtual void Play() => _ = PlayAsync();
+        public virtual void Pause() => IsPaused = true;
+
+        public virtual void Play()
+        {
+            IsPaused = false;
+            IsPlaying = true;
+        }
 
         /// <summary>
         /// Plays this animation asynchronously.
@@ -49,24 +44,24 @@ namespace OneM.AnimationSystem
         /// <returns>An asynchronous operation.</returns>
         public async Awaitable PlayAsync(CancellationTokenSource cancellation = null)
         {
-            if (IsPlayingAnimation) Stop();
-
             Cancel();
             cancelationSource = cancellation ?? new CancellationTokenSource();
 
             try
             {
-                IsPlayingAnimation = true;
-                await StartPlayAsync(cancelationSource.Token);
+                Play();
+                await PlayAsync(cancelationSource.Token);
             }
-            catch (System.Exception e)
-            {
-                Debug.LogException(e);
-            }
-            finally
-            {
-                Stop();
-            }
+            catch (System.OperationCanceledException) { }
+            catch (System.Exception e) { Debug.LogException(e); }
+            finally { Stop(); }
+        }
+
+        public virtual void Stop()
+        {
+            IsPaused = false;
+            IsPlaying = false;
+            Cancel();
         }
 
         public override string ToString()
@@ -75,7 +70,8 @@ namespace OneM.AnimationSystem
             return hasIdentifier ? identifier : base.ToString();
         }
 
-        protected abstract Awaitable StartPlayAsync(CancellationToken token);
+        protected virtual async Awaitable PlayAsync(CancellationToken token) =>
+            await Awaitable.NextFrameAsync(token);
 
         private void Cancel()
         {
