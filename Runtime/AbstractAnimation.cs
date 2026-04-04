@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Threading;
 
-namespace ActionCode.AnimationSystem
+namespace OneM.AnimationSystem
 {
     /// <summary>
     /// Abstract component for an animation.

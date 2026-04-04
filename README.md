@@ -27,22 +27,13 @@ Add the LitMotionAnimation component into a gameobject and configure it. Check t
 
 ## Installation
 
-### Using the Package Registry Server
-
-Follow the instructions inside [here](https://cutt.ly/ukvj1c8) and the package **ActionCode-Animation System** 
-will be available for you to install using the **Package Manager** windows.
-
 ### Using the Git URL
 
-You will need a **Git client** installed on your computer with the Path variable already set. 
+You will need a **Git client** installed on your computer with the Path variable already set and the correct git credentials to 1M Bits Horde.
 
-- Use the **Package Manager** "Add package from git URL..." feature and paste this URL: `https://github.com/HyagoOliveira/AnimationSystem.git`
-
-- You can also manually modify you `Packages/manifest.json` file and add this line inside `dependencies` attribute: 
-
-```json
-"com.actioncode.[package-name]":"https://github.com/HyagoOliveira/AnimationSystem.git"
-```
+- In this repo, go to Code button, select SSH and copy the URL.
+- In Unity, use the **Package Manager** "Add package from git URL..." feature and paste the URL.
+- Set the version adding the suffix `#[x.y.z]` at URL
 
 ---
 

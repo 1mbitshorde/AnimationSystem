@@ -1,6 +1,6 @@
 {
-  "name": "com.actioncode.animation-system",
-  "displayName": "ActionCode-Animation System",
+  "name": "com.1mbitshorde.animation-system",
+  "displayName": "1M Bits Horde-Animation System",
   "version": "0.1.0",
   "unity": "6000.3",
   "description": "This package contains scripts to improve animation workflow.",
@@ -9,13 +9,13 @@
     "Tween"
   ],
   "dependencies": {},
-  "homepage": "https://github.com/HyagoOliveira/AnimationSystem#README",
+  "homepage": "https://github.com/1mbitshorde/AnimationSystem#README",
   "repository": {
     "type": "git",
-    "url": "https://github.com/HyagoOliveira/AnimationSystem.git"
+    "url": "https://github.com/1mbitshorde/AnimationSystem.git"
   },
-  "documentationUrl": "https://github.com/HyagoOliveira/AnimationSystem#README",
-  "changelogUrl": "https://github.com/HyagoOliveira/AnimationSystem/blob/main/CHANGELOG.md",
+  "documentationUrl": "https://github.com/1mbitshorde/AnimationSystem#README",
+  "changelogUrl": "https://github.com/1mbitshorde/AnimationSystem/blob/main/CHANGELOG.md",
   "author": {
     "name": "Hyago Oliveira",
     "email": "hyagogow@gmail.com"

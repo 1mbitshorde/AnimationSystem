@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ActionCode.AnimationSystem
+namespace OneM.AnimationSystem
 {
     /// <summary>
     /// Sequence for parallel animations.

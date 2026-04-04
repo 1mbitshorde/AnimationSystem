@@ -1,6 +1,6 @@
 {
-    "name": "ActionCode.AnimationSystem",
-    "rootNamespace": "ActionCode.AnimationSystem",
+    "name": "OneM.AnimationSystem",
+    "rootNamespace": "OneM.AnimationSystem",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
