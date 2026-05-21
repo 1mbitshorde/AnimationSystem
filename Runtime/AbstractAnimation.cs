@@ -10,6 +10,7 @@ namespace OneM.AnimationSystem
     {
         [SerializeField, Tooltip("The animation identifier.")]
         private string identifier;
+        public bool playOnAwake = true;
 
         public string Identifier => identifier;
         public virtual bool IsPaused { get; private set; }
@@ -17,7 +18,11 @@ namespace OneM.AnimationSystem
 
         private CancellationTokenSource cancelationSource;
 
-        private void OnEnable() => Play();
+        private void OnEnable()
+        {
+            if (playOnAwake) Play();
+        }
+
         private void OnDisable() => Stop();
 
         public virtual void Restart()
