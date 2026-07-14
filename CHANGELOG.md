@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Refact Runtime animation components
 
+### Removed
+- LitMotion components
+
 ## [0.3.1] - 2026-05-21
 ### Fixed
 - Using playOnAwake field
