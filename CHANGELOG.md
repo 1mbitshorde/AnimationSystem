@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [1.0.0] - 2026-07-14
 ### Changed
 - Refact Runtime animation components
 
@@ -38,7 +39,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - gitignore
 - Initial commit
 
-[Unreleased]: https://github.com/1mbitshorde/AnimationSystem/compare/0.3.1...main
+[Unreleased]: https://github.com/1mbitshorde/AnimationSystem/compare/1.0.0...main
+[1.0.0]: https://github.com/1mbitshorde/AnimationSystem/tree/1.0.0/
 [0.3.1]: https://github.com/1mbitshorde/AnimationSystem/tree/0.3.1/
 [0.3.0]: https://github.com/1mbitshorde/AnimationSystem/tree/0.3.0/
 [0.2.0]: https://github.com/1mbitshorde/AnimationSystem/tree/0.2.0/

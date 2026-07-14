@@ -2,28 +2,12 @@
 
 * Scripts to improve animation workflow
 * Unity minimum version: **6000.3**
-* LitMotion Version: **2.0.1**
 
 ## Summary
 
-Components to animate GameOjects in runtime.
+Components to animate GameOjects at runtime.
 
-Also, this packges uses [LitMotion](https://annulusgames.github.io/LitMotion/) and [LitMotion.Animation](https://annulusgames.github.io/LitMotion/articles/en/litmotion-animation-overview.html) as the Tween Library.
-
-## How To Use
-
-### Using LitMotion
-
-Add the LitMotionAnimation component into a gameobject and configure it. Check the [official documentation](https://annulusgames.github.io/LitMotion/articles/en/litmotion-animation.html).
-
-## How to upgrade LitMotion
-
-1. Go to the [LitMotion Release Page](https://github.com/annulusgames/LitMotion/releases)
-2. Download the lasted release
-3. Paste `LitMotion` and `LitMotion.Animation` folders inside the local [LitMotion folder](/LitMotion).
-4. Redo the custom implementations:
-    - [Set LitMotionAnimationComponent Targets when reseted](https://github.com/HyagoOliveira/AnimationSystem/commit/887a0b90964472d2aeff89ebf6240ec1dba64ff5)
-    - [LitMotionAnimation implements AbstractAnimation](https://github.com/HyagoOliveira/AnimationSystem/commit/3d4762a3d6212440ec2113984a684db5a2137566)
+In the Inspector, click on the **Add Component** button > **Animation** and select the category to start to animate.
 
 ## Installation
 
