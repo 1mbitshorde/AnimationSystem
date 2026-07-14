@@ -1,8 +1,8 @@
-using UnityEngine.UIElements;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.UIElements;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace LitMotion.Animation.Editor
 {
@@ -32,7 +32,7 @@ namespace LitMotion.Animation.Editor
                 var property = componentsProperty.GetArrayElementAtIndex(last);
                 property.managedReferenceValue = ReflectionHelper.CreateDefaultInstance(type);
                 serializedObject.ApplyModifiedProperties();
-                animation.Reset();
+                //animation.Reset();
             };
 
             root.Add(CreateSettingsPanel());
@@ -96,7 +96,7 @@ namespace LitMotion.Animation.Editor
         VisualElement CreateSettingsPanel()
         {
             var box = CreateBox("Settings");
-            box.Add(new PropertyField(serializedObject.FindProperty(nameof(animation.playOnAwake))));
+            //box.Add(new PropertyField(serializedObject.FindProperty(nameof(animation.playOnAwake))));
             box.Add(new PropertyField(serializedObject.FindProperty("animationMode")));
             return box;
         }
@@ -309,7 +309,7 @@ namespace LitMotion.Animation.Editor
                     var elementProperty = property.GetArrayElementAtIndex(arrayIndex);
                     elementProperty.managedReferenceValue = ReflectionHelper.CreateDefaultInstance(elementProperty.managedReferenceValue.GetType());
                     RefleshComponentsView(true);
-                    animation.Reset();
+                    //animation.Reset();
                 }, string.IsNullOrEmpty(property.GetArrayElementAtIndex(arrayIndex).managedReferenceFullTypename) ? DropdownMenuAction.Status.Disabled : DropdownMenuAction.Status.Normal);
 
                 evt.menu.AppendSeparator();

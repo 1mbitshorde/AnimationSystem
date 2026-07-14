@@ -1,8 +1,7 @@
+using LitMotion.Collections;
+using OneM.AnimationSystem;
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using OneM.AnimationSystem;
-using LitMotion.Collections;
 using UnityEngine;
 
 namespace LitMotion.Animation
@@ -25,14 +24,6 @@ namespace LitMotion.Animation
         FastListCore<LitMotionAnimationComponent> playingComponents;
 
         public IReadOnlyList<LitMotionAnimationComponent> Components => components;
-
-        public void Reset()
-        {
-            foreach (var component in Components)
-            {
-                component.Reset(this);
-            }
-        }
 
         void MoveNextMotion()
         {
@@ -64,104 +55,7 @@ namespace LitMotion.Animation
             }
         }
 
-        public override void Play()
-        {
-            base.Play();
-            var isPlaying = false;
 
-            foreach (var component in playingComponents.AsSpan())
-            {
-                var handle = component.TrackedHandle;
-                if (handle.IsActive())
-                {
-                    handle.PlaybackSpeed = 1f;
-                    isPlaying = true;
-
-                    component.OnResume();
-                }
-            }
-
-            if (isPlaying) return;
-
-            playingComponents.Clear();
-
-            switch (animationMode)
-            {
-                case AnimationMode.Sequential:
-                    foreach (var component in components)
-                    {
-                        if (component == null) continue;
-                        if (!component.Enabled) continue;
-                        queue.Enqueue(component);
-                    }
-
-                    MoveNextMotion();
-                    break;
-                case AnimationMode.Parallel:
-                    foreach (var component in components)
-                    {
-                        if (component == null) continue;
-                        if (!component.Enabled) continue;
-
-                        try
-                        {
-                            var handle = component.Play();
-                            component.TrackedHandle = handle;
-
-                            if (handle.IsActive())
-                            {
-                                handle.Preserve();
-                            }
-
-                            playingComponents.Add(component);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.LogException(ex);
-                        }
-                    }
-                    break;
-            }
-        }
-
-        public override void Pause()
-        {
-            base.Pause();
-
-            foreach (var component in playingComponents.AsSpan())
-            {
-                var handle = component.TrackedHandle;
-                if (handle.IsActive())
-                {
-                    handle.PlaybackSpeed = 0f;
-                    component.OnPause();
-                }
-            }
-        }
-
-        public override void Stop()
-        {
-            base.Stop();
-
-            var span = playingComponents.AsSpan();
-            span.Reverse();
-            foreach (var component in span)
-            {
-                var handle = component.TrackedHandle;
-                handle.TryCancel();
-                component.OnStop();
-                component.TrackedHandle = handle;
-            }
-
-            playingComponents.Clear();
-            queue.Clear();
-        }
-
-        public override void Restart()
-        {
-            Stop();
-            Play();
-        }
 
         public bool IsActive
         {
@@ -179,25 +73,6 @@ namespace LitMotion.Animation
             }
         }
 
-        public override bool IsPlaying
-        {
-            get
-            {
-                if (queue.Count > 0) return true;
 
-                foreach (var component in playingComponents.AsSpan())
-                {
-                    var handle = component.TrackedHandle;
-                    if (handle.IsPlaying()) return true;
-                }
-
-                return false;
-            }
-        }
-
-        protected override async Awaitable PlayAsync(CancellationToken token)
-        {
-            while (!token.IsCancellationRequested && IsPlaying) await Awaitable.NextFrameAsync(token);
-        }
     }
 }

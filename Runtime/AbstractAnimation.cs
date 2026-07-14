@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Threading;
+using UnityEngine;
 
 namespace OneM.AnimationSystem
 {
@@ -8,65 +8,66 @@ namespace OneM.AnimationSystem
     /// </summary>
     public abstract class AbstractAnimation : MonoBehaviour
     {
-        [SerializeField, Tooltip("The animation identifier.")]
-        private string identifier;
-        public bool playOnAwake = true;
+        [Tooltip("The animation identifier. Use to differentiate in GameObjects with multiple animations.")]
+        public string identifier;
 
-        public string Identifier => identifier;
-        public virtual bool IsPaused { get; private set; }
-        public virtual bool IsPlaying { get; private set; }
+        [Space]
+        [Tooltip("Wether to play when component is enabled.")]
+        public bool playOnEnable = true;
+        [Tooltip("If enabled, animation will play even if Time.deltaTime = 0")]
+        public bool useUnscaledTime;
 
-        private CancellationTokenSource cancelationSource;
+        [Space]
+        [Tooltip("The animation speed.")]
+        public float speed = 1f;
+
+        public bool IsPaused { get; private set; }
+        public bool IsPlaying { get; private set; }
+        public float CurrentTime { get; private set; }
+
+        protected virtual void Reset() => SetIdentifier();
 
         private void OnEnable()
         {
-            if (playOnAwake) Play();
+            if (playOnEnable) Play();
         }
 
         private void OnDisable() => Stop();
 
-        public virtual void Restart()
+        public void Restart()
         {
             Stop();
             Play();
         }
 
-        public virtual void Pause() => IsPaused = true;
+        public void Pause() => IsPaused = true;
 
-        public virtual void Play()
+        public void Play()
         {
-            IsPaused = false;
-            IsPlaying = true;
+            EnablePlayMode();
+            _ = PlayAsync(destroyCancellationToken);
         }
 
-        /// <summary>
-        /// Plays this animation asynchronously.
-        /// </summary>
-        /// <remarks>
-        /// You can stop the animation using the <see cref="Stop"/> function or disable/destroy this instance.
-        /// </remarks>
-        /// <param name="cancellation">The cancellation source to cancel this animation.</param>
-        /// <returns>An asynchronous operation.</returns>
-        public async Awaitable PlayAsync(CancellationTokenSource cancellation = null)
+        public async Awaitable PlayAsync(CancellationToken cancellationToken = default)
         {
-            Cancel();
-            cancelationSource = cancellation ?? new CancellationTokenSource();
+            cancellationToken.ThrowIfCancellationRequested();
 
             try
             {
-                Play();
-                await PlayAsync(cancelationSource.Token);
+                EnablePlayMode();
+                StartPlay();
+                await UpdateAnimationAsync(cancellationToken);
             }
-            catch (System.OperationCanceledException) { }
+            catch (System.OperationCanceledException) { } // implementations may cancel animation
             catch (System.Exception e) { Debug.LogException(e); }
             finally { Stop(); }
         }
 
-        public virtual void Stop()
+        public void Stop()
         {
             IsPaused = false;
             IsPlaying = false;
-            Cancel();
+            CurrentTime = 0f;
         }
 
         public override string ToString()
@@ -75,14 +76,31 @@ namespace OneM.AnimationSystem
             return hasIdentifier ? identifier : base.ToString();
         }
 
-        protected virtual async Awaitable PlayAsync(CancellationToken token) =>
-            await Awaitable.NextFrameAsync(token);
+        protected virtual void SetIdentifier() => identifier = GetType().Name;
+        protected virtual void StartPlay() => CurrentTime = 0f;
 
-        private void Cancel()
+        protected virtual async Awaitable UpdateAnimationAsync(CancellationToken cancellationToken)
         {
-            cancelationSource?.Cancel();
-            cancelationSource?.Dispose();
-            cancelationSource = null;
+            while (CanPlay(cancellationToken))
+            {
+                UpdateAnimation();
+                UpdateCurrentTime();
+                await Awaitable.NextFrameAsync(cancellationToken);
+            }
+        }
+
+        protected virtual void UpdateAnimation() { }
+
+        protected void CancelAnimation() => throw new System.OperationCanceledException();
+        protected void UpdateCurrentTime() => CurrentTime += GetDeltaTime() * speed;
+        protected bool CanPlay(CancellationToken cancellationToken) => !cancellationToken.IsCancellationRequested && IsPlaying;
+        protected float GetDeltaTime() => useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+
+        private void EnablePlayMode()
+        {
+            enabled = true;
+            IsPaused = false;
+            IsPlaying = true;
         }
     }
 }
