@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- Animation Reset/Revert Speed functions
 - AnimationSequence PlayAsync function
 
 ## [1.0.0] - 2026-07-14

@@ -69,5 +69,21 @@ namespace OneM.AnimationSystem
                 await animation.PlayAsync();
             }
         }
+
+        public void ResetSpeed()
+        {
+            foreach (var animation in animations)
+            {
+                animation.ResetSpeed();
+            }
+        }
+
+        public void RevertSpeed()
+        {
+            foreach (var animation in animations)
+            {
+                animation.RevertSpeed();
+            }
+        }
     }
 }
