@@ -77,13 +77,5 @@ namespace OneM.AnimationSystem
                 animation.ResetSpeed();
             }
         }
-
-        public void RevertSpeed()
-        {
-            foreach (var animation in animations)
-            {
-                animation.RevertSpeed();
-            }
-        }
     }
 }

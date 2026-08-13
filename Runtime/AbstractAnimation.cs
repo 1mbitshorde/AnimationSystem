@@ -35,7 +35,6 @@ namespace OneM.AnimationSystem
         private void OnDisable() => Stop();
 
         public void ResetSpeed() => speed = 1F;
-        public void RevertSpeed() => speed *= -1F;
 
         public void Restart()
         {
