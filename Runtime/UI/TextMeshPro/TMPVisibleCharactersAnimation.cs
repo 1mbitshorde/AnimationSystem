@@ -1,4 +1,3 @@
-using System.Threading;
 using UnityEngine;
 
 namespace OneM.AnimationSystem
@@ -7,7 +6,7 @@ namespace OneM.AnimationSystem
     /// Visible Characters animation for Text Mesh Pro.
     /// </summary>
     [DisallowMultipleComponent]
-    [AddComponentMenu("Animation/UI/TextMesh Pro/Visible Characters")]
+    [AddComponentMenu("Animation/UI/TextMesh Pro/Visible Characters Animation")]
     public sealed class TMPVisibleCharactersAnimation : AbstractAnimation
     {
 #if UNITY_TMP

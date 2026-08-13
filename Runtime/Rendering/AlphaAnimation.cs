@@ -8,7 +8,7 @@ namespace OneM.AnimationSystem
     /// Use the <see cref="opacityCurve"/> curve to animate the alpha from a UI component.
     /// </para>
     /// </summary>
-    [AddComponentMenu("Animation/Rendering/Alpha")]
+    [AddComponentMenu("Animation/Rendering/Alpha Animation")]
     public sealed class AlphaAnimation : AbstractAnimation
     {
         [Space]
