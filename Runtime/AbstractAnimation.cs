@@ -48,6 +48,12 @@ namespace OneM.AnimationSystem
             _ = PlayAsync(destroyCancellationToken);
         }
 
+        public void PlayFirstFrame()
+        {
+            CurrentTime = 0f;
+            UpdateAnimation();
+        }
+
         public async Awaitable PlayAsync(CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();

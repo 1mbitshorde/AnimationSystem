@@ -31,7 +31,7 @@ namespace OneM.AnimationSystem
         public void FindAnimations() => animations = GetComponentsInChildren<AbstractAnimation>();
 
         /// <summary>
-        /// Plays all animations parallely.
+        /// Plays all animations at once.
         /// </summary>
         public void Play()
         {
@@ -49,6 +49,24 @@ namespace OneM.AnimationSystem
             foreach (var animation in animations)
             {
                 animation.Stop();
+            }
+        }
+
+        /// <summary>
+        /// Plays all animations, one after another.
+        /// </summary>
+        /// <returns>An asynchronous operation.</returns>
+        public async Awaitable PlayAsync()
+        {
+            foreach (var animation in animations)
+            {
+                // Starts all animations
+                animation.PlayFirstFrame();
+            }
+
+            foreach (var animation in animations)
+            {
+                await animation.PlayAsync();
             }
         }
     }
