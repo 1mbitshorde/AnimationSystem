@@ -16,11 +16,11 @@ namespace OneM.AnimationSystem
         private AnimationCurve opacityCurve = new();
 
         [Space]
-        [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private SpriteRenderer spriteRenderer;
+        public CanvasGroup canvasGroup;
+        public SpriteRenderer spriteRenderer;
 #if UNITY_UGUI
-        [SerializeField] private UnityEngine.UI.Graphic graphic;
-        [SerializeField] private UnityEngine.UI.Shadow shadow;
+        public UnityEngine.UI.Graphic graphic;
+        public UnityEngine.UI.Shadow shadow;
 #endif
 
         protected override void Reset()

@@ -14,7 +14,11 @@ namespace OneM.AnimationSystem
         /// <summary>
         /// All the local animations.
         /// </summary>
-        public AbstractAnimation[] Animations => animations;
+        public AbstractAnimation[] Animations
+        {
+            get => animations;
+            set => animations = value;
+        }
 
         /// <summary>
         /// Finds all local animations if none is set.

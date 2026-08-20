@@ -10,10 +10,10 @@ namespace OneM.AnimationSystem
     public sealed class TMPVisibleCharactersAnimation : AbstractAnimation
     {
 #if UNITY_TMP
-        [SerializeField, Tooltip("The Text to animate the visible characters.")]
-        private TMPro.TMP_Text target;
-        [SerializeField, Tooltip("The animation duration in seconds."), Min(0f)]
-        private float duration = 0.4f;
+        [Tooltip("The Text to animate the visible characters.")]
+        public TMPro.TMP_Text target;
+        [Tooltip("The animation duration in seconds."), Min(0f)]
+        public float duration = 0.4f;
 
         protected override void Reset()
         {
