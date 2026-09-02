@@ -22,11 +22,7 @@ namespace OneM.AnimationSystem
             positionCurve.Reset();
         }
 
-        protected override void StartPlay()
-        {
-            base.StartPlay();
-            originalPosition = transform.localPosition;
-        }
+        private void Awake() => originalPosition = transform.localPosition;
 
         protected override void UpdateAnimation()
         {
