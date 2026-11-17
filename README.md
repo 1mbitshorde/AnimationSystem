@@ -9,6 +9,19 @@ Components to animate GameOjects at runtime.
 
 In the Inspector, click on the **Add Component** button > **Animation** and select the category to start to animate.
 
+## How to Use
+
+### Dynamic Animator
+
+Plays **Start**, **Loop** and **End** animations set at runtime, without creating new Animator Controllers.
+
+- `DynamicAnimationData` (**Create > OneM > Animation System > Dynamic Animation Data**): holds the optional Start, the Loop and the optional End clips.
+- `DynamicAnimator`: put it next to the Animator. It overrides the `Human@Dynamic_Start`, `Human@Dynamic_Loop` and `Human@Dynamic_End` clips of the Animator Controller **Dynamic** Sub-State Machine.
+  - `LoadAndPlay(data)`: loads the clips and plays Start (if any), then Loop.
+  - `Stop()`: plays End (if any). `ClearAnimations()`: stops and removes all clips.
+  - Animations can only be loaded after its `Start`.
+- `DynamicAnimatorPlayer`: loads and plays a `DynamicAnimationData` when the Scene starts (runs after the Dynamic Animator Start).
+
 ## Installation
 
 ### Using the Git URL
